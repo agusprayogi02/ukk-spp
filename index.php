@@ -29,7 +29,7 @@ if (isset($_SESSION['login'])) {
 <body>
   <div class="wrapper">
     <div class="top">
-      <h1>Pembayaran SPP Online <i class="fas fa-camera"></i></h1>
+      <h1>Pembayaran SPP Online</h1>
       <h2 style="margin-bottom: 25px;">Masuk</h2>
       <form action="cek_login.php" class="form" method="POST" onsubmit="return validasi(this)">
         <div class="input_field">
