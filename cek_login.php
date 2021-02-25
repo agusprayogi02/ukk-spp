@@ -1,7 +1,7 @@
 <?php
 include "./function.php";
-$user  = $_POST['inputusername'];
-$pass  = md5($_POST['inputpassword']);
+$user  = $_POST['username'];
+$pass  = md5($_POST['password']);
 $sql  = mysqli_query($conn, "SELECT * FROM petugas WHERE username='$user' AND password='$pass'");
 //query berfungsi untuk mengeksekusi query
 $ketemu  = mysqli_num_rows($sql);
