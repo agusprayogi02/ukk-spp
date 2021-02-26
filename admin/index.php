@@ -41,18 +41,22 @@ if (isset($_SESSION['login'])) {
     <a href="#" id="pull">Menu </a>
     <ul class="clearfix">
       <li><a href="?p=home">Beranda</a></li>
-      <li><a href="#">Profil</a></li>
-      <li><a href="#">Galeri</a></li>
-      <li><a href="#">Berita</a></li>
-      <li class="right"><a href="?p=logout">Keluar</a></li>
+      <li><a href="?p=siswa">Data Siswa</a></li>
+      <li><a href="?p=petugas">Data Petugas</a></li>
+      <li><a href="?p=kelas">Data Kelas</a></li>
+      <li><a href="?p=spp">Data SPP</a></li>
+      <li><a href="?p=histori">Histori</a></li>
+      <li class="right"><a href="?p=logout">
+          Keluar
+        </a></li>
     </ul>
   </nav>
 
+  <script src="../assets/js/jquery-3.5.1.min.js"></script>
   <div class="container" style="margin-top: 30px;">
-    <?php include "./content_admin.php"; ?>
+    <?php require "./content_admin.php"; ?>
   </div>
 
-  <script src="../assets/js/jquery-3.5.1.min.js"></script>
   <script src="../assets/js/script.js"></script>
 </body>
 

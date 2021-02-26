@@ -38,13 +38,16 @@ if (isset($_SESSION['login'])) {
         <div class="input_field">
           <input type="Password" id="user-password" name="password" placeholder="PASSWORD" required>
         </div>
-        <input class="btn" type="submit" name="submit" value="Masuk" />
+        <input class="button" type="submit" name="submit" value="Masuk" />
       </form>
     </div>
   </div>
 
+  <script src="./assets/js/jquery-3.5.1.min.js"></script>
   <script type="text/javascript">
-    window.onload(e)
+    $(document).ready(function() {
+      $('#username').focus()
+    })
 
     function validasi(form) {
       if (form.username.value == "") {
@@ -60,7 +63,6 @@ if (isset($_SESSION['login'])) {
       return true;
     }
   </script>
-  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
