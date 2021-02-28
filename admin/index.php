@@ -40,13 +40,13 @@ if (isset($_SESSION['login'])) {
   <nav class="clearfix" id="navigation">
     <a href="#" id="pull">Menu </a>
     <ul class="clearfix">
-      <li><a href="?p=home">Beranda</a></li>
-      <li><a href="?p=siswa">Data Siswa</a></li>
-      <li><a href="?p=petugas">Data Petugas</a></li>
-      <li><a href="?p=kelas">Data Kelas</a></li>
-      <li><a href="?p=spp">Data SPP</a></li>
-      <li><a href="?p=histori">Histori</a></li>
-      <li class="right"><a href="?p=logout">
+      <li><a class="item" href="?p=home">Beranda</a></li>
+      <li><a class="item" href="?p=siswa">Data Siswa</a></li>
+      <li><a class="item" href="?p=petugas">Data Petugas</a></li>
+      <li><a class="item" href="?p=kelas">Data Kelas</a></li>
+      <li><a class="item" href="?p=spp">Data SPP</a></li>
+      <li><a class="item" href="?p=histori">Histori</a></li>
+      <li class="right"><a class="item" href="?p=logout">
           Keluar
         </a></li>
     </ul>

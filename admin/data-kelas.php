@@ -2,6 +2,12 @@
 
 $query = query("SELECT * FROM kelas");
 
+if (isset($_GET['cari'])) {
+  $cari = $_GET['cari'];
+  $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' ");
+}
+
+
 ?>
 
 <div class="card">
@@ -9,15 +15,15 @@ $query = query("SELECT * FROM kelas");
     <h3 class="t-center">Kelola Data Kelas</h4>
   </div>
   <div class="card-header" style="background-color: #fff;">
-    <div class="row">
-      <form class="col" action="index.php?p=kelas" method="get">
+    <div class="row mx-2">
+      <form class="col-sm-8 col-md-5 row" action="index.php?p=kelas" method="get">
         <input type="hidden" name="p" value="kelas">
-        <input style="width: 20rem; " placeholder="Cari Kelas.." type="text" name="cari" class="input-form">
-        <button class="btn ml-2" type="submit">
+        <input placeholder="Cari Berdasarkan Kejuruan.." type="text" name="cari" class="input-form col">
+        <button class="btn col-md-4 col-2 mx-2" type="submit">
           Cari
         </button>
       </form>
-      <button id="btn-modal" class="btn right mx-2 col-1">
+      <button name="tambah" data-target="tambah-modal" class="btn col-sm-4 col-md-2  off-md-5">
         Tambah
       </button>
     </div>
@@ -26,16 +32,26 @@ $query = query("SELECT * FROM kelas");
     <table class="table table-responsive">
       <thead>
         <tr class="table-blue">
-          <th>ID</th>
+          <th>No</th>
           <th>Kelas</th>
           <th>Jurusan</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($query as $isi => $key) : ?>
-          <td><?= $isi['kelas_id']; ?></td>
-          <td><?= $isi['nama_kelas']; ?></td>
-          <td><?= $isi['kompetensi_keahlian']; ?></td>
+
+        <?php
+        $i = 1;
+        foreach ($query as $key => $isi) : ?>
+          <tr>
+            <td><?= $i++; ?></td>
+            <td><?= $isi['nama_kelas']; ?></td>
+            <td><?= $isi['kopetensi_keahlian']; ?></td>
+            <td class="col-sm-6 col-xl-3 t-center">
+              <button data-target="update-modal" data-kelas="<?= $isi['nama_kelas']; ?>" data-jurusan="<?= $isi['kopetensi_keahlian']; ?>" data-id="<?= $isi['id_kelas']; ?>" class="btn btn-orange">Update</button> |
+              <button onclick="onDelete(<?= $isi['id_kelas']; ?>)" class="btn btn-red">Delete</button>
+            </td>
+          </tr>
         <?php endforeach; ?>
       </tbody>
     </table>
@@ -43,38 +59,88 @@ $query = query("SELECT * FROM kelas");
 </div>
 
 <div class="modal" id="tambah-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
+  <!-- Modal content -->
+  <div class="modal-content col-4">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Tambah Kelas</h2>
     </div>
+    <form id="form-tambah" action="./post-kelas.php" method="post" onsubmit="return validation(this)">
+      <div class="modal-body">
+        <input id="t-kelas" type="number" class="input-form mb-3" name="kelas" placeholder="Kelas.." require>
+        <input id="t-jurusan" type="text" class="input-form" name="kejuruan" placeholder="Nama Kopetensi Keahlian.." require>
+      </div>
+      <div class="modal-footer t-right">
+        <button class="btn" type="submit" name="simpan">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="update-modal">
+  <!-- Modal content -->
+  <div class="modal-content col-4">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Ubah Data Kelas</h2>
+    </div>
+    <form id="form-update" action="./post-kelas.php" method="post" onsubmit="return validation(this)">
+      <div class="modal-body">
+        <input type="hidden" name="id" id="u-id">
+        <input id="u-kelas" type="number" class="input-form mb-3" name="kelas" placeholder="Kelas.." require>
+        <input id="u-jurusan" type="text" class="input-form" name="kejuruan" placeholder="Nama Kopetensi Keahlian.." require>
+      </div>
+      <div class="modal-footer t-right">
+        <button class="btn" type="submit" name="update">Ubah</button>
+      </div>
+    </form>
   </div>
 </div>
 
 <script>
-  $('#btn-modal').click(() => {
-    $('#tambah-modal').css('display', 'block')
+  $('.btn').click((e) => {
+    $('#' + $(e.target).data('target')).css('display', 'block')
+    if ($(e.target).data('target') == 'update-modal') {
+      $("#u-kelas").focus()
+      $('#u-id').val($(e.target).data('id'))
+      $('#u-kelas').val($(e.target).data('kelas'))
+      $('#u-jurusan').val($(e.target).data('jurusan'))
+    } else if ($(e.target).data('target') == 'tambah-modal') {
+      $("#t-kelas").focus()
+    }
   })
 
-  $('.close').click(() => {
+  $('.close').click((e) => {
+    $('#update-modal').css('display', 'none')
     $('#tambah-modal').css('display', 'none')
   })
+
+  $(window).click(function(e) {
+    if (e.target.id == 'update-modal' || e.target.id == 'tambah-modal') {
+      $('#' + e.target.id).css('display', 'none')
+    }
+  })
+
+  function onDelete(id) {
+    var r = confirm("Yakin Ingin Menghapus " + id + "?"),
+      cur = $(location).attr('href');
+    if (r) {
+      $(location).attr('href', './post-kelas.php?del=' + id)
+    }
+  }
+
+  function validation(form) {
+    if (form.kelas.value == '') {
+      alert("Anda belum mengisikan Kelas!");
+      form.kelas.focus();
+      return false;
+    }
+    if (form.kejuruan.value == '') {
+      alert("Anda belum mengisikan Kompetensi Keahlian!");
+      form.kejuruan.focus();
+      return false;
+    }
+    return true;
+    form.defaultPrevented()
+  }
 </script>
