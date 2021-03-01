@@ -7,7 +7,7 @@ $sql  = mysqli_query($conn, "SELECT * FROM petugas WHERE username='$user' AND pa
 $ketemu  = mysqli_num_rows($sql);
 if ($ketemu > 0) {
   $rest = mysqli_fetch_assoc($sql); //memecah data menjadi perkolom di dlm array.
-  $_SESSION['id'] = $rest['id'];
+  $_SESSION['id'] = $rest['id_petugas'];
   $_SESSION['username'] = $rest['username'];
   $_SESSION['level'] = $rest['level'];
   $_SESSION['login'] = true;

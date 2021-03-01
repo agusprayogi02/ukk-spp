@@ -163,6 +163,7 @@ nav {
     font-family: 'PT Sans', Arial, sans-serif;
     font-weight: bold;
     top: 0;
+    z-index: 100;
     position: sticky;
 }
 
