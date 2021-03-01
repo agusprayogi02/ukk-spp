@@ -10,23 +10,15 @@ $baris = 1;
 $jum = count($query);
 $page = ceil($jum / $baris);
 $limit = 0;
+if (isset($_GET['l'])) {
+  $l = $_GET['l'];
+  $limit = ($l - 1) * $baris;
+}
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  if (isset($_GET['l'])) {
-    $l = $_GET['l'];
-    $limit = ($l - 1) * $baris;
-    $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' LIMIT " . $limit . ", " . $baris);
-  } else {
-    $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' LIMIT " . 0 . "," . $baris);
-  }
+  $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' LIMIT " . $limit . "," . $baris);
 } else {
-  if (isset($_GET['l'])) {
-    $l = $_GET['l'];
-    $limit = ($l - 1) * $baris;
-    $query = query("SELECT * FROM kelas LIMIT " . $limit . ", " . $baris);
-  } else {
-    $query = query("SELECT * FROM kelas LIMIT " . 0 . "," . $baris);
-  }
+  $query = query("SELECT * FROM kelas LIMIT " . $limit . "," . $baris);
 }
 
 
@@ -144,35 +136,25 @@ if (isset($_GET['cari'])) {
   })
 
   // pagination
-  $(window).ready(() => {
+  $(document).ready(() => {
     var pageItem = $('#pagination a'),
-      current = $(location).attr('href').split('#')[0].split('?')[1].split('&')[1]
+      page = $(location).attr('href').split('#')[0].split('?')[1].split('&'),
+      current = $(location).attr('href').split('#')[0].split('?')[1].split('&')[2] // get table page
     $(pageItem[0]).addClass('active')
-    console.log(current);
+    console.log(page[0]);
     for (let i = 0; i < pageItem.length; i++) {
       var href = $(pageItem[i]).attr('href').split('?')[1].split('&')[1]
-      if (href == current || href == decodeURIComponent(current)) {
-        console.log(href);
-        $(pageItem[i]).addClass('active')
-        if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
-          $(pageItem[0]).removeClass('active')
+      if (page.length >= 2) {
+        $(pageItem[i]).attr('href', "index.php?" + page[0] + "&" + page[1] + "&l=" + (i + 1))
+        if (href == current || href == decodeURIComponent(current)) {
+          $(pageItem[i]).addClass('active')
+          if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
+            $(pageItem[0]).removeClass('active')
+          }
         }
       }
     }
   })
-
-  // navItem = nav.getElementsByClassName('item'),
-  //   pageItem = document.getElementById('pagination').getElementsByTagName('a')
-  // pageItem[1].className = 'active'
-
-  // for (var i = 0; i < pageItem.length; i++) {
-  //   if (pageItem[i].href == page || pageItem[i].href == decodeURIComponent(page)) {
-  //     pageItem[i].className = 'active'
-  //     if (pageItem[i].href != pageItem[1].href) {
-  //       pageItem[1].className = ''
-  //     }
-  //   }
-  // }
 
   // komfirmasi delete
   function onDelete(id) {

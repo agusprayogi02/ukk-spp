@@ -492,7 +492,7 @@ nav a#pull {
     color: #212529;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #00b4d8;
+    border: 1px solid #118ab2;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -717,7 +717,7 @@ th:first-child {
     /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
     /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.7);
     /* Black w/ opacity */
     -webkit-animation-name: fadeIn;
     /* Fade in the background */
@@ -1772,3 +1772,63 @@ th:first-child {
 
 
 /* end Pagination */
+
+/* custom select2 */
+.select2-container--default .select2-selection--single {
+    padding: 6px;
+    height: 38px !important;
+    width: 100%;
+    font-size: 1rem;
+    position: relative;
+    border: 1px solid #118ab2 !important;
+}
+
+.select2-container--default .select2-selection--single:focus {
+    border-color: #86b7fe;
+    background-color: #fff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    background-image: linear-gradient(#118ab2, #118ab2);
+    width: 40px;
+    color: #fff;
+    font-size: 1.3em;
+    padding: 6px 12px;
+    text-align: center;
+    height: 36px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 35px;
+}
+
+/* multiple select */
+.select2-selection {
+    height: 34px !important;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 3px !important;
+    border: solid 1px #86b7fe !important;
+    padding-left: 4px;
+}
+
+.select2-selection--multiple {
+    height: 75px !important;
+    width: 100% !important;
+}
+
+.select2-selection__choice {
+    height: 40px;
+    line-height: 40px;
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+    background-color: #86b7fe !important;
+    color: #333 !important;
+    border: none !important;
+    border-radius: 3px !important;
+}
+
+
+/* custom select2 */
