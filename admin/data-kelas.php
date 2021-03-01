@@ -30,14 +30,14 @@ if (isset($_GET['cari'])) {
   </div>
   <div class="card-header" style="background-color: #fff;">
     <div class="row mx-2">
-      <form class="col-sm-8 col-md-5 row" action="index.php?p=kelas" method="get">
+      <form class="col-sm-8 col-md-4 row" action="index.php?p=kelas" method="get">
         <input type="hidden" name="p" value="kelas">
         <input placeholder="Cari Berdasarkan Kejuruan.." type="text" name="cari" class="input-form col">
-        <button class="btn col-md-4 col-2 mx-2" type="submit">
+        <button class="btn col-md-4 col-xl-2 mx-2" type="submit">
           Cari
         </button>
       </form>
-      <button name="tambah" data-target="tambah-modal" class="btn col-sm-4 col-md-2  off-md-5">
+      <button name="tambah" data-target="tambah-modal" class="btn col-sm-4 col-md-2  off-md-6">
         Tambah
       </button>
     </div>
@@ -62,8 +62,8 @@ if (isset($_GET['cari'])) {
             <td><?= $isi['nama_kelas']; ?></td>
             <td><?= $isi['kopetensi_keahlian']; ?></td>
             <td class="col-sm-6 col-xl-3 t-center">
-              <button data-target="update-modal" data-kelas="<?= $isi['nama_kelas']; ?>" data-jurusan="<?= $isi['kopetensi_keahlian']; ?>" data-id="<?= $isi['id_kelas']; ?>" class="btn btn-orange">Update</button> |
-              <button onclick="onDelete(<?= $isi['id_kelas']; ?>)" class="btn btn-red">Delete</button>
+              <button data-target="update-modal" data-kelas="<?= $isi['nama_kelas']; ?>" data-jurusan="<?= $isi['kopetensi_keahlian']; ?>" data-id="<?= $isi['id_kelas']; ?>" class="btn btn-orange">Ubah</button> |
+              <button onclick="onDelete(<?= $isi['id_kelas']; ?>)" class="btn btn-red">Hapus</button>
             </td>
           </tr>
         <?php endforeach; ?>

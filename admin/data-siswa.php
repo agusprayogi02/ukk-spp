@@ -39,7 +39,7 @@ $tahun = query("SELECT * FROM spp");
       <form class="col-sm-8  col-xl-5 row" action="index.php?p=kelas" method="get">
         <input type="hidden" name="p" value="siswa">
         <input placeholder="Cari Nama.." type="text" name="cari" class="input-form col">
-        <select name="kelas" class="input-select col-xl-3 mx-2">
+        <select name="kelas" id="cari-kelas" class="input-select col-xl-3 mx-2">
           <option value="">Kelas</option>
           <?php foreach ($kelas as $key => $k) : ?>
             <option value="<?= $k['id_kelas']; ?>"><?= $k['nama_kelas'] . " " . $k['kopetensi_keahlian']; ?></option>
@@ -82,8 +82,8 @@ $tahun = query("SELECT * FROM spp");
             <td><?= $isi['no_telp']; ?></td>
             <td><?= $isi['tahun']; ?></td>
             <td class="col-sm-6 col-xl-3 t-center">
-              <button data-target="update-modal" data-all="<?= $isi['nisn'] . "," . $isi['nama'] . ","  . $isi['alamat'] . "," . $isi['no_telp']; ?>" data-kelas="<?= $isi['id_kelas']; ?>" data-tahun="<?= $isi['id_spp']; ?>" class="btn btn-orange">Update</button> |
-              <button onclick="onDelete(<?= $isi['nisn']; ?>)" class="btn btn-red">Delete</button>
+              <button data-target="update-modal" data-all="<?= $isi['nisn'] . "," . $isi['nama'] . ","  . $isi['alamat'] . "," . $isi['no_telp']; ?>" data-kelas="<?= $isi['id_kelas']; ?>" data-tahun="<?= $isi['id_spp']; ?>" class="btn btn-orange">Ubah</button> |
+              <button onclick="onDelete(<?= $isi['nisn']; ?>)" class="btn btn-red">Hapus</button>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -179,6 +179,12 @@ $tahun = query("SELECT * FROM spp");
     width: '100%',
     placeholder: 'Pilih Tahun Masuk..'
   })
+
+  $('#cari-kelas').select2({
+    width: '35%',
+    placeholder: 'Kelas..'
+  })
+
   // pagination
   $(document).ready(() => {
     var pageItem = $('#pagination a'),

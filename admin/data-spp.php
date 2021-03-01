@@ -30,14 +30,14 @@ if (isset($_GET['cari'])) {
   </div>
   <div class="card-header" style="background-color: #fff;">
     <div class="row mx-2">
-      <form class="col-sm-8 col-md-5 row" action="index.php?p=spp" method="get">
+      <form class="col-sm-8 col-md-4 row" action="index.php?p=spp" method="get">
         <input type="hidden" name="p" value="spp">
         <input placeholder="Cari Berdasarkan Tahun.." type="text" name="cari" class="input-form col">
-        <button class="btn col-md-4 col-2 mx-2" type="submit">
+        <button class="btn col-md-4 col-xl-2 mx-2" type="submit">
           Cari
         </button>
       </form>
-      <button name="tambah" data-target="tambah-modal" class="btn col-sm-4 col-md-2  off-md-5">
+      <button name="tambah" data-target="tambah-modal" class="btn col-sm-4 col-md-2  off-md-6">
         Tambah
       </button>
     </div>
@@ -62,8 +62,8 @@ if (isset($_GET['cari'])) {
             <td><?= $isi['tahun']; ?></td>
             <td><?= $isi['nominal']; ?></td>
             <td class="col-sm-6 col-xl-3 t-center">
-              <button data-target="update-modal" data-all="<?= $isi['id_spp'] . "," . $isi['tahun'] . "," . $isi['nominal']; ?>" class="btn btn-orange">Update</button> |
-              <button onclick="onDelete(<?= $isi['id_spp']; ?>)" class="btn btn-red">Delete</button>
+              <button data-target="update-modal" data-all="<?= $isi['id_spp'] . "," . $isi['tahun'] . "," . $isi['nominal']; ?>" class="btn btn-orange">Ubah</button> |
+              <button onclick="onDelete(<?= $isi['id_spp']; ?>)" class="btn btn-red">Hapus</button>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -180,13 +180,13 @@ if (isset($_GET['cari'])) {
       form.tahun.focus();
       return false;
     }
-    if (form.nominal.value.length > 11) {
-      alert("Inputan Nominal Uang yang anda masukkan terlalu banyak!");
+    if (form.nominal.value == '') {
+      alert("Anda belum mengisikan Nominal Uang!");
       form.nominal.focus();
       return false;
     }
-    if (form.nominal.value == '') {
-      alert("Anda belum mengisikan Nominal Uang!");
+    if (form.nominal.value.length > 11) {
+      alert("Inputan Nominal Uang yang anda masukkan terlalu banyak!");
       form.nominal.focus();
       return false;
     }

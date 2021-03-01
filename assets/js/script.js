@@ -35,11 +35,16 @@ $('.btn').click((e) => {
 
 $('.close').click((e) => {
   $('#update-modal').css('display', 'none')
+  $('#pass-modal').css('display', 'none')
   $('#tambah-modal').css('display', 'none')
 })
 
 $(window).click(function (e) {
-  if (e.target.id == 'update-modal' || e.target.id == 'tambah-modal') {
+  if (
+    e.target.id == 'update-modal' ||
+    e.target.id == 'tambah-modal' ||
+    e.target.id == 'pass-modal'
+  ) {
     $('#' + e.target.id).css('display', 'none')
   }
 })
