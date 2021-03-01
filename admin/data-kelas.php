@@ -138,19 +138,17 @@ if (isset($_GET['cari'])) {
   // pagination
   $(document).ready(() => {
     var pageItem = $('#pagination a'),
-      page = $(location).attr('href').split('#')[0].split('?')[1].split('&'),
-      current = $(location).attr('href').split('#')[0].split('?')[1].split('&')[2] // get table page
+      page = $(location).attr('href').split('#')[0].split('?')[1].split('&l='),
+      current = page[1]
     $(pageItem[0]).addClass('active')
     console.log(page[0]);
     for (let i = 0; i < pageItem.length; i++) {
-      var href = $(pageItem[i]).attr('href').split('?')[1].split('&')[1]
-      if (page.length >= 2) {
-        $(pageItem[i]).attr('href', "index.php?" + page[0] + "&" + page[1] + "&l=" + (i + 1))
-        if (href == current || href == decodeURIComponent(current)) {
-          $(pageItem[i]).addClass('active')
-          if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
-            $(pageItem[0]).removeClass('active')
-          }
+      var href = $(pageItem[i]).attr('href').split('&l=')[1]
+      $(pageItem[i]).attr('href', "index.php?" + page[0] + "&l=" + (i + 1))
+      if (href == current || href == decodeURIComponent(current)) {
+        $(pageItem[i]).addClass('active')
+        if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
+          $(pageItem[0]).removeClass('active')
         }
       }
     }
@@ -158,7 +156,7 @@ if (isset($_GET['cari'])) {
 
   // komfirmasi delete
   function onDelete(id) {
-    var r = confirm("Yakin Ingin Menghapus " + id + "?"),
+    var r = confirm("Yakin Ingin Menghapus data Kelas ini?"),
       cur = $(location).attr('href');
     if (r) {
       $(location).attr('href', './post-kelas.php?del=' + id)

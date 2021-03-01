@@ -10,7 +10,7 @@ if (isset($_GET['cari'])) {
 } else {
   $query = query("SELECT * FROM siswa");
 }
-$baris = 1; // banyak perhalaman
+$baris = 2; // banyak perhalaman
 $jum = count($query);
 $page = ceil($jum / $baris);
 $limit = 0;
@@ -83,7 +83,7 @@ $tahun = query("SELECT * FROM spp");
             <td><?= $isi['tahun']; ?></td>
             <td class="col-sm-6 col-xl-3 t-center">
               <button data-target="update-modal" data-all="<?= $isi['nisn'] . "," . $isi['nama'] . ","  . $isi['alamat'] . "," . $isi['no_telp']; ?>" data-kelas="<?= $isi['id_kelas']; ?>" data-tahun="<?= $isi['id_spp']; ?>" class="btn btn-orange">Update</button> |
-              <button onclick="onDelete(<?= $isi['id_kelas']; ?>)" class="btn btn-red">Delete</button>
+              <button onclick="onDelete(<?= $isi['nisn']; ?>)" class="btn btn-red">Delete</button>
             </td>
           </tr>
         <?php endforeach; ?>
@@ -96,7 +96,7 @@ $tahun = query("SELECT * FROM spp");
         <?php
         $page = $page == 0 ? 1 : $page;
         for ($i = 1; $i <= $page; $i++) : ?>
-          <a href="index.php?p=kelas&l=<?= $i; ?>"><?= $i; ?></a>
+          <a href="index.php?p=siswa&l=<?= $i; ?>"><?= $i; ?></a>
         <?php endfor; ?>
       </div>
     </div>
@@ -145,7 +145,7 @@ $tahun = query("SELECT * FROM spp");
     </div>
     <form id="form-update" action="./post-siswa.php" method="post" onsubmit="return validation(this)">
       <div class="modal-body">
-        <input type="number" class="input-form mb-3" name="nisn" placeholder="Nisn.." require>
+        <input type="number" readonly class="input-form mb-3" name="nisn" placeholder="Nisn.." require>
         <input type="text" class="input-form mb-3" name="nama" placeholder="Nama.." require>
         <select name="kelas" id="u-kelas" class="input-select mb-3 select-kelas">
           <option value="">Kelas</option>
@@ -182,23 +182,29 @@ $tahun = query("SELECT * FROM spp");
   // pagination
   $(document).ready(() => {
     var pageItem = $('#pagination a'),
-      page = $(location).attr('href').split('#')[0].split('?')[1].split('&'),
-      current = $(location).attr('href').split('#')[0].split('?')[1].split('&')[3] // get table page
+      page = $(location).attr('href').split('#')[0].split('?')[1].split('&l='),
+      current = page[1]
     $(pageItem[0]).addClass('active')
     console.log(page[0]);
     for (let i = 0; i < pageItem.length; i++) {
-      var href = $(pageItem[i]).attr('href').split('?')[1].split('&')[1]
-      if (page.length >= 3) { // rubah page
-        $(pageItem[i]).attr('href', "index.php?" + page[0] + "&" + page[1] + "&l=" + (i + 1))
-        if (href == current || href == decodeURIComponent(current)) {
-          $(pageItem[i]).addClass('active')
-          if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
-            $(pageItem[0]).removeClass('active')
-          }
+      var href = $(pageItem[i]).attr('href').split('&l=')[1]
+      $(pageItem[i]).attr('href', "index.php?" + page[0] + "&l=" + (i + 1))
+      if (href == current || href == decodeURIComponent(current)) {
+        $(pageItem[i]).addClass('active')
+        if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
+          $(pageItem[0]).removeClass('active')
         }
       }
     }
   })
+
+  function onDelete(id) {
+    var r = confirm("Yakin Ingin Menghapus data Siswa ini?"),
+      cur = $(location).attr('href');
+    if (r) {
+      $(location).attr('href', './post-siswa.php?del=' + id)
+    }
+  }
 
   // modal
   $('.btn').click((e) => {
@@ -248,6 +254,11 @@ $tahun = query("SELECT * FROM spp");
     }
     if (form.telp.value == "") {
       alert("Anda belum mengisikan No Hp!");
+      form.telp.focus();
+      return false;
+    }
+    if (form.telp.value.length > 13) {
+      alert("No Hp telalu banyak!");
       form.telp.focus();
       return false;
     }
