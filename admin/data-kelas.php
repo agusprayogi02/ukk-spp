@@ -1,12 +1,22 @@
 <?php
 
 $query = query("SELECT * FROM kelas");
+$baris = 1;
+$jum = count($query);
+$page = ceil($jum / $baris);
+$limit = 0;
+if (isset($_GET['l'])) {
+  $l = $_GET['l'];
+  $limit = ($l - 1) * $baris;
+  $query = query("SELECT * FROM kelas LIMIT " . $limit . ", " . $baris);
+} else {
+  $query = query("SELECT * FROM kelas LIMIT " . 0 . "," . $baris);
+}
 
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
   $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' ");
 }
-
 
 ?>
 
@@ -35,13 +45,13 @@ if (isset($_GET['cari'])) {
           <th>No</th>
           <th>Kelas</th>
           <th>Jurusan</th>
-          <th>Action</th>
+          <th>Tindakan</th>
         </tr>
       </thead>
       <tbody>
 
         <?php
-        $i = 1;
+        $i = $limit + 1;
         foreach ($query as $key => $isi) : ?>
           <tr>
             <td><?= $i++; ?></td>
@@ -55,6 +65,17 @@ if (isset($_GET['cari'])) {
         <?php endforeach; ?>
       </tbody>
     </table>
+    <!-- pagination -->
+    <div class="page">
+      <h4>Halaman</h4>
+      <div class="pagination" id="pagination">
+        <?php
+        $page = $page == 0 ? 1 : $page;
+        for ($i = 1; $i <= $page; $i++) : ?>
+          <a href="index.php?p=kelas&l=<?= $i; ?>"><?= $i; ?></a>
+        <?php endfor; ?>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -98,29 +119,50 @@ if (isset($_GET['cari'])) {
 </div>
 
 <script>
+  // modal
   $('.btn').click((e) => {
-    $('#' + $(e.target).data('target')).css('display', 'block')
     if ($(e.target).data('target') == 'update-modal') {
-      $("#u-kelas").focus()
+      $('#u-kelas').focus()
       $('#u-id').val($(e.target).data('id'))
       $('#u-kelas').val($(e.target).data('kelas'))
       $('#u-jurusan').val($(e.target).data('jurusan'))
     } else if ($(e.target).data('target') == 'tambah-modal') {
-      $("#t-kelas").focus()
+      $('#t-kelas').focus()
     }
   })
 
-  $('.close').click((e) => {
-    $('#update-modal').css('display', 'none')
-    $('#tambah-modal').css('display', 'none')
-  })
-
-  $(window).click(function(e) {
-    if (e.target.id == 'update-modal' || e.target.id == 'tambah-modal') {
-      $('#' + e.target.id).css('display', 'none')
+  // pagination
+  $(window).ready(() => {
+    var pageItem = $('#pagination a'),
+      current = $(location).attr('href').split('#')[0].split('?')[1].split('&')[1]
+    $(pageItem[0]).addClass('active')
+    console.log(current);
+    for (let i = 0; i < pageItem.length; i++) {
+      var href = $(pageItem[i]).attr('href').split('?')[1].split('&')[1]
+      if (href == current || href == decodeURIComponent(current)) {
+        console.log(href);
+        $(pageItem[i]).addClass('active')
+        if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
+          $(pageItem[0]).removeClass('active')
+        }
+      }
     }
   })
 
+  // navItem = nav.getElementsByClassName('item'),
+  //   pageItem = document.getElementById('pagination').getElementsByTagName('a')
+  // pageItem[1].className = 'active'
+
+  // for (var i = 0; i < pageItem.length; i++) {
+  //   if (pageItem[i].href == page || pageItem[i].href == decodeURIComponent(page)) {
+  //     pageItem[i].className = 'active'
+  //     if (pageItem[i].href != pageItem[1].href) {
+  //       pageItem[1].className = ''
+  //     }
+  //   }
+  // }
+
+  // komfirmasi delete
   function onDelete(id) {
     var r = confirm("Yakin Ingin Menghapus " + id + "?"),
       cur = $(location).attr('href');
@@ -129,6 +171,7 @@ if (isset($_GET['cari'])) {
     }
   }
 
+  // validation
   function validation(form) {
     if (form.kelas.value == '') {
       alert("Anda belum mengisikan Kelas!");

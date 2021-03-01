@@ -52,6 +52,8 @@ if (isset($_SESSION['login'])) {
     </ul>
   </nav>
 
+
+
   <script src="../assets/js/jquery-3.5.1.min.js"></script>
   <div class="container" style="margin-top: 30px;">
     <?php require "./content_admin.php"; ?>

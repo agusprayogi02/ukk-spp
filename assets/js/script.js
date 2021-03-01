@@ -15,10 +15,11 @@ $(function () {
 })
 
 function currentNav(navId) {
-  var current = window.location.href.split('#')[0].split('&')[0],
+  var page = window.location.href.split('#')[0],
+    current = page.split('&')[0],
     nav = document.getElementById(navId),
     navItem = nav.getElementsByClassName('item')
-  console.log(current)
+
   for (var i = 0; i < navItem.length; i++) {
     if (navItem[i].href == current || navItem[i].href == decodeURIComponent(current)) {
       navItem[i].className = 'active'
@@ -26,3 +27,20 @@ function currentNav(navId) {
   }
 }
 currentNav('navigation')
+
+// modal
+$('.btn').click((e) => {
+  $('#' + $(e.target).data('target')).css('display', 'block')
+})
+
+$('.close').click((e) => {
+  $('#update-modal').css('display', 'none')
+  $('#tambah-modal').css('display', 'none')
+})
+
+$(window).click(function (e) {
+  if (e.target.id == 'update-modal' || e.target.id == 'tambah-modal') {
+    $('#' + e.target.id).css('display', 'none')
+  }
+})
+// end modal

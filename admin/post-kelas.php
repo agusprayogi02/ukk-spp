@@ -27,7 +27,15 @@ if (isset($_GET['del'])) {
   $id = $_GET['del'];
   $rest = mysqli_query($conn, "DELETE FROM kelas WHERE id_kelas = '$id'");
   if ($conn->affected_rows > 0) {
-    header("location:index.php?p=kelas");
+    echo "<script>
+        alert('Berhasil Menghapus Kelas!');
+      </script>
+    ";
+  } else {
+    echo "<script>
+        alert('Gagal Menghapus Kelas, karena masih ada ikatan!');
+      </script>
+    ";
   }
-  echo $conn->affected_rows;
+  header("location:index.php?p=kelas");
 }
