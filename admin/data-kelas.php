@@ -6,7 +6,7 @@ if (isset($_GET['cari'])) {
 } else {
   $query = query("SELECT * FROM kelas");
 }
-$baris = 1;
+$baris = 2;
 $jum = count($query);
 $page = ceil($jum / $baris);
 $limit = 0;

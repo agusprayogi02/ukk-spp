@@ -121,7 +121,7 @@ $tahun = query("SELECT * FROM spp");
           <?php endforeach; ?>
         </select>
         <input type="text" class="input-form my-3" name="alamat" placeholder="Alamat.." require>
-        <input type="text" class="input-form mb-3" name="telp" placeholder="No HP.." require>
+        <input type="number" class="input-form mb-3" name="telp" placeholder="No HP.." require>
         <select name="tahun" class="input-select select-tahun">
           <option value="">Tahun</option>
           <?php foreach ($tahun as $key => $t) : ?>
@@ -154,7 +154,7 @@ $tahun = query("SELECT * FROM spp");
           <?php endforeach; ?>
         </select>
         <input type="text" class="input-form my-3" name="alamat" placeholder="Alamat.." require>
-        <input type="text" class="input-form mb-3" name="telp" placeholder="No HP.." require>
+        <input type="number" class="input-form mb-3" name="telp" placeholder="No HP.." require>
         <select name="tahun" class="input-select select-tahun" id="u-tahun">
           <option value="">Tahun</option>
           <?php foreach ($tahun as $key => $t) : ?>
@@ -177,7 +177,7 @@ $tahun = query("SELECT * FROM spp");
   })
   $('.select-tahun').select2({
     width: '100%',
-    placeholder: 'Pilih Tahun..'
+    placeholder: 'Pilih Tahun Masuk..'
   })
   // pagination
   $(document).ready(() => {

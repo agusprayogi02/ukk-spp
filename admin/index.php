@@ -3,10 +3,10 @@
 require "../function.php";
 if (isset($_SESSION['login'])) {
   if ($_SESSION['level'] === "siswa") {
-    header("location:siswa/");
+    header("location:../siswa/");
     exit;
   } else if ($_SESSION['level'] === "petugas") {
-    header("location:petugas/");
+    header("location:../petugas/");
     exit;
   }
 } else {
@@ -26,8 +26,17 @@ if (isset($_SESSION['login'])) {
   <link rel="stylesheet" href="../assets/css/all.min.css">
   <link rel="stylesheet" href="../assets/css/select2.css" />
   <link rel="stylesheet" href="../assets/css/style.css">
-
-  <title>Halaman Admin</title>
+  <style>
+    footer {
+      text-align: center;
+      padding: 15px;
+      bottom: 0;
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+    }
+  </style>
+  <title>SPP - Admin</title>
 </head>
 
 <body>
@@ -54,12 +63,18 @@ if (isset($_SESSION['login'])) {
     </ul>
   </nav>
 
-
   <script src="../assets/js/jquery-3.5.1.min.js"></script>
   <script src="../assets/js/select2.min.js"></script>
   <div class="container" style="margin-top: 30px;">
     <?php require "./content_admin.php"; ?>
   </div>
+
+  <footer>
+    <p>Penulis: Agus Prayogi<br>
+      <a href="mailto:agus21apy@gmail.com">agus21apy@gmail.com</a>
+    </p>
+  </footer>
+
   <script>
     $(document).ready(function($) {
       $('b[role="presentation"]').hide()
