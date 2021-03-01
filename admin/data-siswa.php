@@ -151,4 +151,16 @@ if (isset($_GET['cari'])) {
       }
     }
   })
+
+  // modal
+  $('.btn').click((e) => {
+    if ($(e.target).data('target') == 'update-modal') {
+      $('#u-kelas').focus()
+      $('#u-id').val($(e.target).data('id'))
+      $('#u-kelas').val($(e.target).data('kelas'))
+      $('#u-jurusan').val($(e.target).data('jurusan'))
+    } else if ($(e.target).data('target') == 'tambah-modal') {
+      $('#t-kelas').focus()
+    }
+  })
 </script>

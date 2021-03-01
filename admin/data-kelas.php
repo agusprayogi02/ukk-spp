@@ -1,22 +1,34 @@
 <?php
 
-$query = query("SELECT * FROM kelas");
+if (isset($_GET['cari'])) {
+  $cari = $_GET['cari'];
+  $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' ");
+} else {
+  $query = query("SELECT * FROM kelas");
+}
 $baris = 1;
 $jum = count($query);
 $page = ceil($jum / $baris);
 $limit = 0;
-if (isset($_GET['l'])) {
-  $l = $_GET['l'];
-  $limit = ($l - 1) * $baris;
-  $query = query("SELECT * FROM kelas LIMIT " . $limit . ", " . $baris);
-} else {
-  $query = query("SELECT * FROM kelas LIMIT " . 0 . "," . $baris);
-}
-
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' ");
+  if (isset($_GET['l'])) {
+    $l = $_GET['l'];
+    $limit = ($l - 1) * $baris;
+    $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' LIMIT " . $limit . ", " . $baris);
+  } else {
+    $query = query("SELECT * FROM kelas WHERE kopetensi_keahlian LIKE '%$cari%' LIMIT " . 0 . "," . $baris);
+  }
+} else {
+  if (isset($_GET['l'])) {
+    $l = $_GET['l'];
+    $limit = ($l - 1) * $baris;
+    $query = query("SELECT * FROM kelas LIMIT " . $limit . ", " . $baris);
+  } else {
+    $query = query("SELECT * FROM kelas LIMIT " . 0 . "," . $baris);
+  }
 }
+
 
 ?>
 
