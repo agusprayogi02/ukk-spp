@@ -2,10 +2,12 @@
 
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  $kelas = $_GET['kelas'];
   $str = "SELECT * FROM siswa as a JOIN kelas as b ON a.id_kelas = b.id_kelas JOIN spp as c ON a.id_spp = c.id_spp WHERE a.nama LIKE '%$cari%'";
   // cek pilih kelas
-  $str .= $kelas != "" ? "AND a.id_kelas = '$kelas'" : "";
+  if (isset($_GET['kelas'])) {
+    $kelas = $_GET['kelas'];
+    $str .= $kelas != "" ? "AND a.id_kelas = '$kelas'" : "";
+  }
   $query = query($str);
 } else {
   $query = query("SELECT * FROM siswa");
@@ -36,7 +38,7 @@ $tahun = query("SELECT * FROM spp");
   </div>
   <div class="card-header bg-white">
     <div class="row mx-2">
-      <form class="col-sm-8  col-xl-5 row" action="index.php?p=kelas" method="get">
+      <form class="col-sm-8  col-xl-5 row" action="index.php" method="get">
         <input type="hidden" name="p" value="siswa">
         <input placeholder="Cari Nama.." type="text" name="cari" class="input-form col">
         <select name="kelas" id="cari-kelas" class="input-select col-xl-3 mx-2">

@@ -30,7 +30,7 @@ if (isset($_GET['cari'])) {
   </div>
   <div class="card-header" style="background-color: #fff;">
     <div class="row mx-2">
-      <form class="col-sm-8 col-md-4 row" action="index.php?p=spp" method="get">
+      <form class="col-sm-8 col-md-4 row" action="index.php" method="get">
         <input type="hidden" name="p" value="spp">
         <input placeholder="Cari Berdasarkan Tahun.." type="text" name="cari" class="input-form col">
         <button class="btn col-md-4 col-xl-2 mx-2" type="submit">
