@@ -57,6 +57,7 @@ if (isset($_SESSION['login'])) {
       <li><a class="item" href="?p=kelas">Data Kelas</a></li>
       <li><a class="item" href="?p=spp">Data SPP</a></li>
       <li><a class="item" href="?p=histori">Histori</a></li>
+      <li><a class="item" href="?p=laporan">Laporan</a></li>
       <li class="right"><a class="item" href="?p=logout">
           Keluar
         </a></li>

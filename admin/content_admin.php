@@ -15,6 +15,9 @@ if (isset($_GET['p'])) {
   } elseif ($page === 'histori') {
     include './histori.php';
   } elseif ($page === 'logout') {
+  } elseif ($page === 'laporan') {
+    include './laporan.php';
+  } elseif ($page === 'logout') {
     logout();
   }
 } else {

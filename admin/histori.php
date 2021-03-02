@@ -52,9 +52,13 @@ $tahun = query("SELECT * FROM spp");
           Cari
         </button>
       </form>
-      <a href="index.php?p=home" class="btn col-sm-4 col-md-2  off-md-5">
-        Tambah
-      </a>
+      <div class="col t-right">
+        <button class="btn">
+          <a href="index.php?p=home">
+            Tambah
+          </a>
+        </button>
+      </div>
     </div>
   </div>
   <div class="card-body">
@@ -77,8 +81,8 @@ $tahun = query("SELECT * FROM spp");
         foreach ($query as $key => $isi) : ?>
           <tr>
             <td><?= $i++; ?></td>
-            <td><?= $isi['nisn']; ?></td>
             <td><?= $isi['tgl_bayar']; ?></td>
+            <td><?= $isi['nama']; ?></td>
             <td><?= $isi['nama_kelas'] . " " . $isi['kopetensi_keahlian']; ?></td>
             <td><?= $isi['bulan_dibayar']; ?></td>
             <td><?= $isi['tahun_dibayar']; ?></td>
@@ -104,3 +108,25 @@ $tahun = query("SELECT * FROM spp");
     </div>
   </div>
 </div>
+
+
+<script>
+  // pagination
+  $(document).ready(() => {
+    var pageItem = $('#pagination a'),
+      page = $(location).attr('href').split('#')[0].split('?')[1].split('&l='),
+      current = page[1]
+    $(pageItem[0]).addClass('active')
+    console.log(page[0]);
+    for (let i = 0; i < pageItem.length; i++) {
+      var href = $(pageItem[i]).attr('href').split('&l=')[1]
+      $(pageItem[i]).attr('href', "index.php?" + page[0] + "&l=" + (i + 1))
+      if (href == current || href == decodeURIComponent(current)) {
+        $(pageItem[i]).addClass('active')
+        if ($(pageItem[i]).attr('href') != $(pageItem[0]).attr('href')) {
+          $(pageItem[0]).removeClass('active')
+        }
+      }
+    }
+  })
+</script>

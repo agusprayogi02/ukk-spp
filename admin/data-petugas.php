@@ -37,9 +37,11 @@ if (isset($_GET['cari'])) {
           Cari
         </button>
       </form>
-      <button name="tambah" data-target="tambah-modal" class="btn col-sm-4 col-md-2  off-md-6">
-        Tambah
-      </button>
+      <div class="col t-right">
+        <button name="tambah" data-target="tambah-modal" class="btn">
+          Tambah
+        </button>
+      </div>
     </div>
   </div>
   <div class="card-body">
@@ -73,14 +75,21 @@ if (isset($_GET['cari'])) {
       </tbody>
     </table>
     <!-- pagination -->
-    <div class="page">
-      <h4>Halaman</h4>
-      <div class="pagination" id="pagination">
-        <?php
-        $page = $page == 0 ? 1 : $page;
-        for ($i = 1; $i <= $page; $i++) : ?>
-          <a href="index.php?p=kelas&l=<?= $i; ?>"><?= $i; ?></a>
-        <?php endfor; ?>
+    <div class="row">
+      <div class="page col">
+        <h4>Halaman</h4>
+        <div class="pagination" id="pagination">
+          <?php
+          $page = $page == 0 ? 1 : $page;
+          for ($i = 1; $i <= $page; $i++) : ?>
+            <a href="index.php?p=siswa&l=<?= $i; ?>"><?= $i; ?></a>
+          <?php endfor; ?>
+        </div>
+      </div>
+      <div class="col-2 t-right">
+        <button class="btn mt-3 mr-4">
+          Cetak
+        </button>
       </div>
     </div>
   </div>
