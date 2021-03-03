@@ -22,7 +22,7 @@ if (isset($_POST['simpan'])) {
   if ($conn->affected_rows > 0) {
     echo "<script>
         alert('Berhasil Melakukan Transaksi Pembayaran SPP!');
-        location.href = './cetak/laporan.php?nisn=" . $nama . "&bln=" . $b . "';
+        location.href = 'laporan.php?nisn=" . $nama . "&bln=" . $b . "';
       </script>
     ";
   } else {
@@ -33,6 +33,7 @@ if (isset($_POST['simpan'])) {
     ";
   }
 }
+
 
 if (isset($_GET['del'])) {
   $id = $_GET['del'];

@@ -8,11 +8,14 @@ if (isset($_GET['cari'])) {
     $kelas = $_GET['kelas'];
     $str .= $kelas != "" ? "AND a.id_kelas = '$kelas'" : "";
   }
+  $strPrint = $str;
   $query = query($str);
 } else {
+  $strPrint = "SELECT * FROM siswa as a JOIN kelas as b ON a.id_kelas = b.id_kelas JOIN spp as c ON a.id_spp = c.id_spp ";
   $query = query("SELECT * FROM siswa");
 }
-$baris = 2; // banyak perhalaman
+$printAll = query($strPrint);
+$baris = 5; // banyak perhalaman
 $jum = count($query);
 $page = ceil($jum / $baris);
 $limit = 0;
@@ -75,7 +78,7 @@ $tahun = query("SELECT * FROM spp");
       <tbody>
 
         <?php
-        $i = 1;
+        $i = $limit + 1;
         foreach ($query as $key => $isi) : ?>
           <tr>
             <td><?= $i++; ?></td>
@@ -106,7 +109,7 @@ $tahun = query("SELECT * FROM spp");
         </div>
       </div>
       <div class="col-2 t-right">
-        <button class="btn mt-3 mr-4">
+        <button onclick="printDiv('print-area')" id="cetak" class="btn mt-3 mr-4">
           Cetak
         </button>
       </div>
@@ -180,7 +183,51 @@ $tahun = query("SELECT * FROM spp");
   </div>
 </div>
 
+<div id="print-area" style="display: none;">
+  <table class="table table-responsive">
+    <thead>
+      <tr class="table-blue">
+        <th>No</th>
+        <th>NISN</th>
+        <th>Nama</th>
+        <th>Kelas</th>
+        <th>Alamat</th>
+        <th>No HP</th>
+        <th>Tahun Masuk</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <?php
+      $i = 1;
+      foreach ($printAll as $key => $p) : ?>
+        <tr>
+          <td><?= $i++; ?></td>
+          <td><?= $p['nisn']; ?></td>
+          <td><?= $p['nama']; ?></td>
+          <td><?= $p['nama_kelas'] . " " . $p['kopetensi_keahlian']; ?></td>
+          <td><?= $p['alamat']; ?></td>
+          <td><?= $p['no_telp']; ?></td>
+          <td><?= $p['tahun']; ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
+
 <script>
+  // cetak
+  function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+  }
+
   // select
   $('.select-kelas').select2({
     width: '100%',

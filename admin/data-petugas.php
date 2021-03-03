@@ -6,7 +6,8 @@ if (isset($_GET['cari'])) {
 } else {
   $query = query("SELECT * FROM petugas");
 }
-$baris = 2;
+$printAll = $query;
+$baris = 5;
 $jum = count($query);
 $page = ceil($jum / $baris);
 $limit = 0;
@@ -87,7 +88,7 @@ if (isset($_GET['cari'])) {
         </div>
       </div>
       <div class="col-2 t-right">
-        <button class="btn mt-3 mr-4">
+        <button onclick="printDiv('print-area')" class="btn mt-3 mr-4">
           Cetak
         </button>
       </div>
@@ -167,7 +168,46 @@ if (isset($_GET['cari'])) {
   </div>
 </div>
 
+
+<div id="print-area" style="display: none;">
+  <table class="table table-responsive">
+    <thead>
+      <tr class="table-blue">
+        <th>No</th>
+        <th>Nama</th>
+        <th>Username</th>
+        <th>Jabatan</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <?php
+      $i = 1;
+      foreach ($printAll as $key => $p) : ?>
+        <tr>
+          <td><?= $i++; ?></td>
+          <td><?= $p['nama_petugas']; ?></td>
+          <td><?= $p['username']; ?></td>
+          <td><?= $p['level']; ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
+
 <script>
+  // cetak
+  function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+  }
+
   // modal
   $('.btn').click((e) => {
     if ($(e.target).data('target') == 'update-modal') {

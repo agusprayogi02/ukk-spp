@@ -16,9 +16,8 @@ function query($query)
 
 function logout()
 {
-  session_start();
   session_destroy();
-  header('location:index.php');
+  header('location:../index.php');
 }
 
 function tambah($data)

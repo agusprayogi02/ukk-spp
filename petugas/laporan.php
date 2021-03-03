@@ -1,6 +1,6 @@
 <?php
 
-require "../../function.php";
+require "../function.php";
 if (isset($_GET['nisn'])) {
   $nisn = $_GET['nisn'];
   $str = "SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas JOIN petugas as d ON a.id_petugas = d.id_petugas WHERE a.nisn = '$nisn' ";

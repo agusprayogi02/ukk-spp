@@ -26,7 +26,16 @@ if (isset($_SESSION['login'])) {
   <link rel="stylesheet" href="../assets/css/all.min.css">
   <link rel="stylesheet" href="../assets/css/select2.css" />
   <link rel="stylesheet" href="../assets/css/style.css">
-
+  <style>
+    footer {
+      text-align: center;
+      padding: 15px;
+      bottom: 0;
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+    }
+  </style>
   <title>SPP - Petugas</title>
 </head>
 
@@ -43,10 +52,6 @@ if (isset($_SESSION['login'])) {
     <a href="#" id="pull">Menu </a>
     <ul class="clearfix">
       <li><a class="item" href="?p=home">Beranda</a></li>
-      <li><a class="item" href="?p=siswa">Data Siswa</a></li>
-      <li><a class="item" href="?p=petugas">Data Petugas</a></li>
-      <li><a class="item" href="?p=kelas">Data Kelas</a></li>
-      <li><a class="item" href="?p=spp">Data SPP</a></li>
       <li><a class="item" href="?p=histori">Histori</a></li>
       <li class="right"><a class="item" href="?p=logout">
           Keluar
@@ -60,6 +65,12 @@ if (isset($_SESSION['login'])) {
   <div class="container" style="margin-top: 30px;">
     <?php require "./content_petugas.php"; ?>
   </div>
+
+  <footer>
+    <p>Penulis: Agus Prayogi<br>
+      <a href="mailto:agus21apy@gmail.com">agus21apy@gmail.com</a>
+    </p>
+  </footer>
   <script>
     $(document).ready(function($) {
       $('b[role="presentation"]').hide()

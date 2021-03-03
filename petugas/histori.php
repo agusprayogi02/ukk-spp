@@ -1,8 +1,9 @@
 <?php
 
+$uid = $_SESSION['id'];
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  $str = "SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas WHERE b.nama LIKE '%$cari%' ";
+  $str = "SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas WHERE a.id_petugas = '$uid' b.nama LIKE '%$cari%' ";
   // cek pilih kelas
   if (isset($_GET['kelas'])) {
     $kelas = $_GET['kelas'];
@@ -10,12 +11,7 @@ if (isset($_GET['cari'])) {
   }
   $query = query($str);
 } else {
-  $query = query("SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas");
-}
-if (isset($_POST['nisn'])) {
-  $nisn = $_POST['nisn'];
-  $str = "SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas WHERE a.nisn = '%$nisn%' ";
-  $query = query($str);
+  $query = query("SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas WHERE a.id_petugas = '$uid'");
 }
 $printAll = $query;
 $baris = 5; // banyak perhalaman
@@ -30,7 +26,7 @@ if (isset($_GET['l'])) {
 if (isset($_GET['cari'])) {
   $query = query($str . "ORDER BY id_pembayaran DESC LIMIT " . $limit . "," . $baris);
 } else {
-  $query = query("SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas ORDER BY id_pembayaran DESC LIMIT " . $limit . "," . $baris);
+  $query = query("SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas Where a.id_petugas = '$uid' ORDER BY id_pembayaran DESC LIMIT " . $limit . "," . $baris);
 }
 // get semua kelas
 $kelas = query("SELECT * FROM kelas");
@@ -172,6 +168,7 @@ $tahun = query("SELECT * FROM spp");
       $(location).attr('href', './post-home.php?del=' + id)
     }
   }
+
   // pagination
   $(document).ready(() => {
     var pageItem = $('#pagination a'),
