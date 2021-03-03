@@ -111,7 +111,6 @@ $kelas = query("SELECT * FROM kelas");
 
   $('select').select2({
     width: '20%',
-    placeholder: 'Pilih Kelas..'
   })
 
   function validasi(form) {

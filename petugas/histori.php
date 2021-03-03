@@ -3,7 +3,7 @@
 $uid = $_SESSION['id'];
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  $str = "SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas WHERE a.id_petugas = '$uid' b.nama LIKE '%$cari%' ";
+  $str = "SELECT * FROM pembayaran as a JOIN siswa as b ON a.nisn = b.nisn JOIN kelas as c ON b.id_kelas = c.id_kelas WHERE a.id_petugas = '$uid' AND b.nama LIKE '%$cari%' ";
   // cek pilih kelas
   if (isset($_GET['kelas'])) {
     $kelas = $_GET['kelas'];

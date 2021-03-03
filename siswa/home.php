@@ -54,13 +54,6 @@ $tahun = query("SELECT * FROM spp");
           Cari
         </button>
       </form>
-      <div class="col t-right">
-        <button class="btn">
-          <a href="index.php?p=home">
-            Tambah
-          </a>
-        </button>
-      </div>
     </div>
   </div>
   <div class="card-body">

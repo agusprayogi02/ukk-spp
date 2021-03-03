@@ -2,9 +2,9 @@
 
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  $query = query("SELECT * FROM petugas WHERE nama_petugas LIKE '%$cari%' ");
+  $query = query("SELECT * FROM petugas WHERE level != 'siswa' AND nama_petugas LIKE '%$cari%' ");
 } else {
-  $query = query("SELECT * FROM petugas");
+  $query = query("SELECT * FROM petugas WHERE level != 'siswa'");
 }
 $printAll = $query;
 $baris = 5;
@@ -17,9 +17,9 @@ if (isset($_GET['l'])) {
 }
 if (isset($_GET['cari'])) {
   $cari = $_GET['cari'];
-  $query = query("SELECT * FROM petugas WHERE nama_petugas LIKE '%$cari%' LIMIT " . $limit . "," . $baris);
+  $query = query("SELECT * FROM petugas WHERE level != 'siswa' AND nama_petugas LIKE '%$cari%' LIMIT " . $limit . "," . $baris);
 } else {
-  $query = query("SELECT * FROM petugas LIMIT " . $limit . "," . $baris);
+  $query = query("SELECT * FROM petugas WHERE level != 'siswa' LIMIT " . $limit . "," . $baris);
 }
 
 
